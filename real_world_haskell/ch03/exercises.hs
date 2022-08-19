@@ -81,5 +81,12 @@ l1_norm (x1,y1) (x2,y2) = abs(x1-x2) + abs(x2-y2)
 sortPol (xb,yb) (x1,y1) (x2,y2) = 
   compare (pol_angle (xb,yb) (x1,y1))  (pol_angle (xb,yb) (x2,y2)) <> compare (l1_norm (xb,yb) (x2,y2)) (l1_norm (xb,yb) (x1,y1))  
 sortbypol xs = let (xp,yp)= (get_p0 xs)
-                     in sortBy(\(x1,y1) (x2,y2) ->sortPol (xp,yp) (x1,y1) (x2,y2))
+                     in sortBy(\(x1,y1) (x2,y2) ->sortPol (xp,yp) (x1,y1) (x2,y2)) xs
 --grahams_scan
+--
+ccw a b c = let dir = (get_directions (a, b, c))
+  in case dir of
+  Main.Straight-> 0
+  Main.Left -> 1
+  Main.Right -> -1
+grahams_sort point points top:next_to:stack last_angle =
