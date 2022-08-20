@@ -76,8 +76,10 @@ get_list_directions (a:b:c:points) = (get_directions (a, b, c)):get_list_directi
 sortBP (x1,y1) (x2,y2) = compare y1 y2 <> compare x1 x2
 get_p0 (xs) = head (sortBy(\(x1,y1) (x2,y2) -> sortBP (x1,y1) (x2, y2)) xs)
 pol_angle:: Point-> Point ->Double
+square num = num * num
+-- pol_angle (x1,y1) (x2,y2) = (x1-x2)/(sqrt ((square (x1-x2)) +(square (y1-y2))))
+l1_norm (x1,y1) (x2,y2) = abs(x1-x2) + abs(y1-y2)
 pol_angle (x1,y1) (x2,y2) = (atan2 (y2-y1) (x2-x1))  * (180/pi)
-l1_norm (x1,y1) (x2,y2) = abs(x1-x2) + abs(x2-y2)
 sortPol (xb,yb) (x1,y1) (x2,y2) = 
   compare (pol_angle (xb,yb) (x1,y1))  (pol_angle (xb,yb) (x2,y2)) <> compare (l1_norm (xb,yb) (x2,y2)) (l1_norm (xb,yb) (x1,y1))  
 sortbypol xs = let (xp,yp)= (get_p0 xs)
@@ -89,4 +91,23 @@ ccw a b c = let dir = (get_directions (a, b, c))
   Main.Straight-> 0
   Main.Left -> 1
   Main.Right -> -1
-grahams_sort point points top:next_to:stack last_angle =
+grahams_scan points = let p0= (get_p0 points) in
+          let sorted_points = tail (sortbypol points)                            
+          in grahams_scan_w_p0 (head sorted_points) (tail sorted_points) [p0] pi p0 True
+grahams_scan_w_p0 :: Point -> [Point] -> [Point] -> Double -> Point -> Bool -> [Point]
+grahams_scan_w_p0 point points stack last_angle p0 check| check && (last_angle ==pol_angle p0 point) = grahams_scan_w_p0 (head points) (tail points) stack (pol_angle p0 point) p0 True
+-- if the stack is too short are ccw is indicating a CCW move we add to the stack and move on
+grahams_scan_w_p0 point points stack last_angle p0 check| (length stack)<2||ccw (head (tail stack)) (head stack) point==1  =let new_stack=[point]++stack
+                in 
+                if ((length points)>0)
+                   then grahams_scan_w_p0 (head points) (tail points) new_stack (pol_angle p0 point) p0 True
+                else
+                    new_stack
+-- we are done
+grahams_scan_w_p0 point points stack last_angle p0 check| (length points)==0 && ((length stack)<=2) =  [point]++stack
+-- eval has failed and we pop from the stack
+grahams_scan_w_p0 point points stack last_angle p0 check = grahams_scan_w_p0 point points (tail stack) (pol_angle p0 point) p0 False
+-- test
+-- input_points = [(0, 3), (1, 1), (2, 2), (4, 4),(0, 0), (1, 2), (3, 1), (3, 3)]
+-- grahamas_scan input_points
+-- out: [(0.0,3.0),(4.0,4.0),(3.0,1.0),(0.0,0.0)]
