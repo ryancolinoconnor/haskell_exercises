@@ -85,6 +85,7 @@ sortPol (xb,yb) (x1,y1) (x2,y2) =
 sortbypol xs = let (xp,yp)= (get_p0 xs)
                      in sortBy(\(x1,y1) (x2,y2) ->sortPol (xp,yp) (x1,y1) (x2,y2)) xs
 --grahams_scan
+--follows pseudocode here: https://en.wikipedia.org/wiki/Graham_scan
 --
 ccw a b c = let dir = (get_directions (a, b, c))
   in case dir of
