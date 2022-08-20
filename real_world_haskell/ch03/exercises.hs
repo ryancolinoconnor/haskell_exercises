@@ -97,7 +97,7 @@ grahams_scan points = let p0= (get_p0 points) in
           in grahams_scan_w_p0 (head sorted_points) (tail sorted_points) [p0] pi p0 True
 grahams_scan_w_p0 :: Point -> [Point] -> [Point] -> Double -> Point -> Bool -> [Point]
 grahams_scan_w_p0 point points stack last_angle p0 check| check && (last_angle ==pol_angle p0 point) = grahams_scan_w_p0 (head points) (tail points) stack (pol_angle p0 point) p0 True
--- if the stack is too short are ccw is indicating a CCW move we add to the stack and move on
+-- if the stack is too short or ccw is indicating a CCW move we add to the stack and move on
 grahams_scan_w_p0 point points stack last_angle p0 check| (length stack)<2||ccw (head (tail stack)) (head stack) point==1  =let new_stack=[point]++stack
                 in 
                 if ((length points)>0)
