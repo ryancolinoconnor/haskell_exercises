@@ -1,0 +1,14 @@
+isInAny needle haystack= any inSequence haystack
+    where inSequence s = needle `isInfixOf` s
+
+isInAny2 needle haystack = any (\s -> needle `isInfixOf` s) haystack
+isInAny3 needle haystack = any (isInfixOf needle) haystack
+
+safeHead (x:_) = Just x
+safeHead _ = Nothing
+
+
+unsafeHead = \(x:_) -> \(x:_) -> x
+
+
+isInAny4 needle haystack = any (needle `isInfixOf`) haystack
