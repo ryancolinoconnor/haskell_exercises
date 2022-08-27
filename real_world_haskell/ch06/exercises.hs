@@ -1,0 +1,4 @@
+-- 1. second seoncd the second component of input through the argument arrow
+--
+--
+-- 2. (,), (,,) create tuples out of arguments

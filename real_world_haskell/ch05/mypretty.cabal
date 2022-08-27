@@ -1,0 +1,12 @@
+Name : mypretty
+Version: 0.1
+Synopsis: My pretty printing library, with JSON support
+    A simple pretty-printing library that illustrates how to develop a Haskell librar
+
+Author: Real World Haskell
+Maintainer: nobody@realworldhaskell.org
+library
+    Exposed-Modules: Prettify
+                    PrettyJSON
+                    SimpleJSON
+    Build-Depends: base>= 2.0
