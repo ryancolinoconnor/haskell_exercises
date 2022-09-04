@@ -205,3 +205,16 @@ namesMatching pat
                               case pathNames of
                                 Left err -> return $ Left err
                                 Right pns -> return $Right (concat pathNames)
+-- 1. Glob pattens are simple enough to interpet that it's easy to write a matcher in haskell rather than using the regex machinery give it a try
+-- rather tedious so i'm not matching everything, and haven't used much more than *, ? personally
+-- pattern, file, output
+takelast 0 _ = []
+takelast n list = (takelast (n-1) (init list)) ++ [tail list]
+matchesHask :: String -> String-> Bool
+matchesHask "*" _ = True
+matchesHask "" _ = False
+matchesHask ('?':pat) (_:str_rest) = matchesHask pat str_rest
+matchesHask ('*':end) str = let len_ = (min (length end) (length str)) in
+                        (takelast len_ end)==(takelast len_ str)
+matchesHask pat filename = pat==filename
+                    
