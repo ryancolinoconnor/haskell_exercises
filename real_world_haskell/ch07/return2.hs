@@ -1,4 +1,4 @@
-
+-- more "puter version"
 import Data.Char(toUpper)
 isYes :: String -> Bool
 isYes inpStr = (toUpper . head $ inpStr) == 'Y'
