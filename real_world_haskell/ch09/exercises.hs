@@ -127,7 +127,7 @@ accDirectories lis info = Continue (lis ++ [ControlledVisit.infoPath info])
 -- Done + skip/continue should be done, but maybe they mean in terms of the "betterFind"
 -- Which just seems like copy pasting predicates from before stuff like liftp and so forth, skipping for now
 -- 4.1/4.2 Add information about who owns a directory
--- Writing this via WSL2/ Ubunto so going with posix
+-- Writing this via WSL2/ Ubuntu so going with posix
 -- The Posix API interacts super cleanly with the base filedirectory as below, being that I'm
 -- time boxed i'm not porting all of the code, but below is an example using the system.posix api to
 -- accumulate the owners. To make it available to predicates you'd want to 
