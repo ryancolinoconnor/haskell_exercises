@@ -5,6 +5,7 @@ import Data.Word (Word8)
 -- parsers provided didn't work for me for plain pgm files
 -- and just returned nothing, haven't used 
 -- pgm so moving forward
+-- todo: return to htis and actually test the code 
 -- 1.1 
 -- Write a parser for "plain" pGM files
 -- One image in a file
