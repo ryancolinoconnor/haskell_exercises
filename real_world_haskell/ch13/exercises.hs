@@ -1,0 +1,8 @@
+-- 1.1 Extend the prettyShow function to remove unnecessary parens
+-- unclear what is not necessary- e.g. 
+-- prettyShow $ 5+ 1*log 3 yields 5.0 + (1.0 * log(3.0))
+-- which I think most of these are pretty relevant 
+-- getting this thing to compile with new haskell was an exercise
+-- also their examples in the chapter don't have any "not necessary" version
+-- unless they're saying that ordinality matters 
+-- skipping for now...
