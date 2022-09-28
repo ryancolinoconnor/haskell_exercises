@@ -75,6 +75,7 @@ intParser = readInt `liftM` (many (satisfy isDigit))
 -- runParser p (B.pack "999ac")
 --
 -- 2.3 Modify your parse to throw a NumericOverflow if it detects a numeric overflow
+-- hacky solution below, what should really be done is to add in like a foldr, or a way to pass in an aggregator to many- the contstraint of a->[a] is dumb, ideally what you'd like to do is as you read in the characters accumulate, and throw the error as necessary, there may be some way of doign that per their signature specs but I don't know it 
 runParser2 p bs = case runState (runExceptT (runP p)) bs of
                    (Left err, _) -> Left err
                    (Right r, bs) -> Right (r, bs)
